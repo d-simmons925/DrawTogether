@@ -1,0 +1,13 @@
+body{
+  margin: 0;
+  background-color: #01161E;
+}
+
+#myCanvas{
+  width: 75%;
+  height: 75%;
+  display: flex;
+  background: #EFF6E0;
+  border-radius: 10px;
+  float: left;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draw Together</title>
+</head>
+<body>
+  <header>
+    <h1>Draw Together</h1>
+  </header>
+  <main>
+    <form action="/hostRoom" method="POST" id="hostForm">
+      <input type="text" name="hostUsername" id="hostUsername" placeholder="name" value="" required>
+      <label for="room" id="roomLabel"></label>
+      <input type="hidden" name="hostRoom" id="hostRoom" value="">
+      <button type="submit">Host</button>
+    </form>
+    <form action="/joinRoom" method="POST" id="joinForm">
+      <input type="text" name="joinUsername" id="joinUsername" placeholder="name" value="" required>
+      <input type="text" name="joinRoom" id="joinRoom" value="">
+      <button type="submit">Join</button>
+    </form>
+  </main>
+  <!-- <script src="socket.io/socket.io.js"></script> -->
+  <script src="/js/main.js"></script>
+</body>
+</html>
