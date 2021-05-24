@@ -3,7 +3,7 @@ const socket = io();
 var userId = ''
 var paths = {}
 var pickedSize = 10
-var pickedColor = '#42445a'
+var pickedColor = 'black'
 
 socket.emit('new-user')
 
