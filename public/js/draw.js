@@ -1,9 +1,28 @@
 const socket = io();
 
+var colorPicker = document.getElementById('colorPicker')
+var erase = document.getElementById('erase')
+var canvas = document.getElementById('myCanvas')
+var cursor = document.getElementsByClassName('cursor')
+
 var userId = ''
 var paths = {}
 var pickedSize = 10
-var pickedColor = '#42445a'
+var pickedColor = colorPicker.value
+
+//changes path color
+colorPicker.addEventListener('input', (e)=>{
+  pickedColor = e.target.value;
+})
+
+//eraser tool onclick
+erase.addEventListener('click', ()=>{
+  pickedColor = '#EAEAEA'
+})
+
+colorPicker.addEventListener('click', (e)=>{
+  pickedColor = e.target.value;
+})
 
 socket.emit('new-user')
 
@@ -34,9 +53,9 @@ function onMouseDown(){
   socket.emit('startPath', {size: pickedSize, color: pickedColor}, userId)
 }
 
-function onMouseDrag(event){
-  continuePath(event.point, userId)
-  socket.emit('continuePath', {point: [event.point.x, event.point.y]}, userId)
+function onMouseDrag(e){
+  continuePath(e.point, userId)
+  socket.emit('continuePath', {point: [e.point.x, e.point.y]}, userId)
 }
 
 //draw functions
@@ -53,54 +72,6 @@ function continuePath(point, userId){
   path.smooth()
 }
 
-const pickr = Pickr.create({
-  el: '.color-picker',
-  theme: 'nano', // or 'monolith', or 'classic'
-  comparison: false,
-  appClass: 'custom-class',
-
-  // swatches: [
-  //     'rgba(244, 67, 54, 1)',
-  //     'rgba(233, 30, 99, 0.95)',
-  //     'rgba(156, 39, 176, 0.9)',
-  //     'rgba(103, 58, 183, 0.85)',
-  //     'rgba(63, 81, 181, 0.8)',
-  //     'rgba(33, 150, 243, 0.75)',
-  //     'rgba(3, 169, 244, 0.7)',
-  //     'rgba(0, 188, 212, 0.7)',
-  //     'rgba(0, 150, 136, 0.75)',
-  //     'rgba(76, 175, 80, 0.8)',
-  //     'rgba(139, 195, 74, 0.85)',
-  //     'rgba(205, 220, 57, 0.9)',
-  //     'rgba(255, 235, 59, 0.95)',
-  //     'rgba(255, 193, 7, 1)'
-  // ],
-
-  components: {
-
-      // Main components
-      preview: true,
-      opacity: false,
-      hue: true,
-
-      // Input / output Options
-      interaction: {
-          hex: false,
-          rgba: false,
-          hsla: false,
-          hsva: false,
-          cmyk: false,
-          input: false,
-          cancel: true,
-          clear: false,
-          save: false
-      }
-  }
-});
-
-pickr.on('change', (...args) => {
-	let color = args[0].toRGBA();
-	pickedColor = `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`
-  pickr.default = color;
-});
-
+function changeColor(event){
+  pickedColor = event.target.value
+}

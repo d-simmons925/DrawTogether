@@ -38,10 +38,6 @@ header{
   margin-bottom: 5px;
 }
 
-/* .pickr .pcr-button:after{
-  background: var(--pickedColor);
-} */
-
 #roomLabel{
   font-size: 20px;
   font-weight: bold;
@@ -86,6 +82,38 @@ header{
   background: #EAEAEA;
 }
 
+#colorPicker{
+  width: 95%;
+  height: 45px;
+  margin: auto;
+  border: 2px solid black;
+}
+
+#colorPicker:hover{
+  cursor: pointer;
+  border-color: rgb(68, 22, 233);
+}
+
+#erase{
+  width: 95%;
+  height: 45px;
+  font-size: 1.7em;
+  border: 2px solid black;
+}
+
+#erase:hover{
+  border-color: rgb(68, 22, 233);
+  color: rgb(68, 22, 233);
+}
+
+.cursor{
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: absolute;
+}
+
 .draw-container{
   margin-top: 80px;
 }
@@ -94,6 +122,7 @@ header{
   background-color: rgba(146, 180, 167, 100%);
   padding-top: 10px;
   margin-left: 10px;
-  width: 200px;
+  width: 100px;
   border-radius: 15px;
 }
+
