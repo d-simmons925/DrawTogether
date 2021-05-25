@@ -21,7 +21,7 @@ app.get('/', (req, res) =>{
 var username = ''
 var room = ''
 
-app.post('/hostRoom', (req, res, next) =>{
+app.post('/hostRoom', (req, res) =>{
   res.redirect(req.body.hostRoom)
 
   username = req.body.hostUsername
@@ -36,7 +36,7 @@ app.post('/joinRoom', (req, res)=>{
 })
 
 app.get('/:room', (req, res) => {
-  res.render('draw', {roomName: req.params.room})
+    res.render('draw', {roomName: req.params.room})
 })
 
 // USER CONNECTION
@@ -45,22 +45,24 @@ io.on('connect', socket =>{
   socket.join(user.room)
   socket.to(room).broadcast.emit(username)
 
+  username = ''
+  room = ''
+
   io.to(user.room).emit('roomUsers', {
     room: user.room,
     users: getRoomUsers(user.room)
   })
 
-
   //USER STARTS PATH
   socket.on( 'startPath', (data, userId)=>{
     const user = getCurrentUser(userId)
-      io.to(user.room).emit('startPath', data, userId);
+      socket.broadcast.to(user.room).emit('startPath', data, userId);
   })
 
   //USER CONTINUES PATH
   socket.on( 'continuePath', (data, userId)=>{
     const user = getCurrentUser(userId)
-      io.to(user.room).emit('continuePath', data, userId);
+      socket.broadcast.to(user.room).emit('continuePath', data, userId);
   })
 })
 

@@ -38,6 +38,10 @@ header{
   margin-bottom: 5px;
 }
 
+/* .pickr .pcr-button:after{
+  background: var(--pickedColor);
+} */
+
 #roomLabel{
   font-size: 20px;
   font-weight: bold;
@@ -73,9 +77,23 @@ header{
 
 /* Draw Page */
 #myCanvas{
-  margin: 80px auto;
+  margin-left: 30vw;
+  margin-right: 0;
+  padding: 0;
   border: 2px solid black;
   width: 800px;
   height: 600px;
   background: #EAEAEA;
+}
+
+.draw-container{
+  margin-top: 80px;
+}
+
+.tools{
+  background-color: rgba(146, 180, 167, 100%);
+  padding-top: 10px;
+  margin-left: 10px;
+  width: 200px;
+  border-radius: 15px;
 }
