@@ -36,16 +36,20 @@ app.post('/joinRoom', (req, res)=>{
 })
 
 app.get('/:room', (req, res) => {
-    res.render('draw', {roomName: req.params.room})
+    
+    if(username == ''){
+      res.redirect('/')
+    } else{
+      res.render('draw', {roomName: req.params.room})
+    }
 })
 
-// USER CONNECTION
+// user connection
 io.on('connect', socket =>{
   const user = userJoin(socket.id, username, room)
   socket.join(user.room)
   socket.to(room).broadcast.emit(username)
-
-  username = ''
+  username  = ''
   room = ''
 
   io.to(user.room).emit('roomUsers', {
@@ -53,16 +57,33 @@ io.on('connect', socket =>{
     users: getRoomUsers(user.room)
   })
 
-  //USER STARTS PATH
+  //user starts path
   socket.on( 'startPath', (data, userId)=>{
     const user = getCurrentUser(userId)
       socket.broadcast.to(user.room).emit('startPath', data, userId);
   })
 
-  //USER CONTINUES PATH
+  //user continues path
   socket.on( 'continuePath', (data, userId)=>{
     const user = getCurrentUser(userId)
       socket.broadcast.to(user.room).emit('continuePath', data, userId);
+  })
+
+  // user ends path
+  socket.on( 'endPath', (data, userId)=>{
+    const user = getCurrentUser(userId)
+      socket.broadcast.to(user.room).emit('endPath', data, userId);
+  })
+
+  socket.on('disconnect', ()=>{
+    const user = userLeave(socket.id)
+
+    if(user){
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      })
+    }
   })
 })
 
