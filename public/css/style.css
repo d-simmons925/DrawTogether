@@ -6,23 +6,24 @@
 
 body{
   margin: 20px;
-  background-color: #40798C;
+  background-color: #284B63;
 }
 
 header{
   font-family: 'Gloria Hallelujah', cursive;
+  margin-top: 15vh;
 }
 
-.container{
+.header{
+  margin-top: 15vh;
+}
+
+.menu{
   max-width: 500px;
-  margin: 80px auto;
+  margin: 30px auto;
   background-color: #EAEAEA;
   height: 400px;
-  border-radius: 15px;
-}
-
-.container-fluid{
-  margin: 80px auto;
+  border-radius: 10px;
 }
 
 .form-control{
@@ -73,13 +74,13 @@ header{
 
 /* Draw Page */
 #myCanvas{
-  margin-left: 30vw;
   margin-right: 0;
   padding: 0;
   border: 2px solid black;
-  width: 800px;
-  height: 600px;
+  width: 1210px;
+  height: 720px;
   background: #EAEAEA;
+  cursor: none;
 }
 
 #colorPicker{
@@ -95,15 +96,43 @@ header{
 }
 
 #erase{
+  margin-top: 10px;
   width: 95%;
   height: 45px;
   font-size: 1.7em;
-  border: 2px solid black;
 }
 
-#erase:hover{
+button{
+  width: 95%;
+  height: 45px;
+  margin-top: 10px;
+  border: 2px solid black
+}
+
+button:hover{
   border-color: rgb(68, 22, 233);
   color: rgb(68, 22, 233);
+}
+
+#xSmall{ 
+  font-size: 5px;
+}
+
+#small{
+  font-size: 10px;
+}
+
+#medium{
+  font-size: 25px;
+}
+
+#large{
+  height: 80px;
+  font-size: 50px;
+}
+
+.draw{
+  margin-top: 10vh;
 }
 
 .cursor{
@@ -112,17 +141,20 @@ header{
   border: 1px solid black;
   border-radius: 50%;
   position: absolute;
+  cursor: none;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .draw-container{
-  margin-top: 80px;
+  margin: 15vh auto;
 }
 
 .tools{
-  background-color: rgba(146, 180, 167, 100%);
+  background-color: #153243;
   padding-top: 10px;
   margin-left: 10px;
   width: 100px;
-  border-radius: 15px;
+  border-radius: 10px;
+  float: right;
 }
-

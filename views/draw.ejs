@@ -12,13 +12,20 @@
   </script>
 </head>
 <body>
-  <div class="row draw-container">
-      <canvas id="myCanvas" class="col-9" resize="true"></canvas>
-      <div class="col-3 tools">
+  <div class="cursor"></div>
+  <main class="container draw">
+    <div class="row">
+      <canvas id="myCanvas" class="col-auto" resize="true"></canvas>
+      <div class="col-auto tools">
         <input type="color" name="colorPicker" id="colorPicker" value="#42445a">
         <button id="erase"><i class="fas fa-eraser"></i></button>
+        <button id="xSmall" class="size" value="5"><i class="fas fa-circle"></i></button>
+        <button id="small" class="size" value="10"><i class="fas fa-circle"></i></button>
+        <button id="medium" class="size" value="25"><i class="fas fa-circle"></i></button>
+        <button id="large" class="size" value="50"><i class="fas fa-circle"></i></button>
       </div>
-  </div>
+    </div>
+  </main>
 
   <ul id="users">
 

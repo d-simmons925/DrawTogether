@@ -1,17 +1,25 @@
 const socket = io();
 
+var cursor = document.querySelector('.cursor')
 var colorPicker = document.getElementById('colorPicker')
 var erase = document.getElementById('erase')
 var canvas = document.getElementById('myCanvas')
-var cursor = document.getElementsByClassName('cursor')
+var setSize = document.querySelectorAll('.size')
 
 var userId = ''
 var paths = {}
 var pickedSize = 10
 var pickedColor = colorPicker.value
 
-//changes path color
-colorPicker.addEventListener('input', (e)=>{
+//select path size
+setSize.forEach((size)=>{
+  size.addEventListener('click', ()=>{
+    pickedSize = size.value
+  })
+})
+
+//select path color
+colorPicker.addEventListener('input', e=>{
   pickedColor = e.target.value;
 })
 
@@ -20,8 +28,19 @@ erase.addEventListener('click', ()=>{
   pickedColor = '#EAEAEA'
 })
 
-colorPicker.addEventListener('click', (e)=>{
+colorPicker.addEventListener('click', e =>{
   pickedColor = e.target.value;
+})
+
+canvas.addEventListener('mousemove', e =>{
+  cursor.setAttribute('style', 'top: '+(e.pageY - pickedSize/2)+
+                      'px; left: '+(e.pageX - pickedSize/2)+
+                      'px; visibility: visible; width: '+pickedSize+
+                      'px; height: '+pickedSize+'px;')
+})
+
+canvas.addEventListener('mouseleave', ()=>{
+  cursor.setAttribute('style', 'visibility: hidden;')
 })
 
 socket.emit('new-user')
