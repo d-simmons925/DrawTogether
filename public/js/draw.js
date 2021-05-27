@@ -1,4 +1,4 @@
-const socket = io();
+var socket = io();
 
 var cursor = document.querySelector('.cursor')
 var colorPicker = document.getElementById('colorPicker')
@@ -53,7 +53,6 @@ canvas.addEventListener('mouseleave', ()=>{
 //track user paths by id
 socket.on('connect', ()=>{
   userId = socket.id;
-  console.log(socket.id)
 })
 
 //Get room and users

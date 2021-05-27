@@ -10,9 +10,16 @@
   <title>Draw Together</title>
 </head>
 <body>
+  <div class="container">
+    <% if(error && error.length > 0){ %>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
+      </div>
+    <% } %>
+  </div>
   <div class="row header">
     <header class="col-12 text-center">
-      <h1>Draw Together</h1>
+      <h1 id="title"></h1>
     </header>
   </div>
   <main class="container menu">

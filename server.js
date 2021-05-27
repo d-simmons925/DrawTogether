@@ -1,27 +1,40 @@
-const path = require('path')
-const http = require('http')
-const express = require('express')
-const socketio = require ('socket.io')
+var path = require('path')
+var http = require('http')
+var express = require('express')
+var socketio = require ('socket.io')
+var flash = require("connect-flash")
+var session = require('express-session')
+var {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users')
 
-const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users')
+var app = express()
+var server = http.createServer(app)
+var io = socketio(server)
 
-const app = express()
-const server = http.createServer(app)
-const io = socketio(server)
-
+app.use(session({
+  secret: 'my secret',
+  resave: false,
+  saveUninitialized: false
+}))
 app.set('views', './views')
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true}))
+app.use(flash())
 
-app.get('/', (req, res) =>{
+app.use((req, res, next)=>{
+  res.locals.error = req.flash("error")
+  res.locals.success = req.flash("success")
+  next()
+})
+
+app.get('/', (req, res)=>{
   res.render('index')
 })
 
 var username = ''
 var room = ''
 
-app.post('/hostRoom', (req, res) =>{
+app.post('/hostRoom', (req, res)=>{
   res.redirect(req.body.hostRoom)
 
   username = req.body.hostUsername
@@ -29,24 +42,32 @@ app.post('/hostRoom', (req, res) =>{
 })
 
 app.post('/joinRoom', (req, res)=>{
-  res.redirect(req.body.joinRoom)
+  if(username == '' || room.length == 6){
+    req.flash('error', 'error: invalid room name')
+    res.redirect('/')
+  } else{
+    res.redirect(req.body.joinRoom)
+  }
 
   username = req.body.joinUsername
   room = req.body.joinRoom
 })
 
-app.get('/:room', (req, res) => {
-    
+app.get('/:room', (req, res)=>{ 
     if(username == ''){
+      req.flash('error', 'error: no username')
       res.redirect('/')
-    } else{
+    } else if(room.length < 6){
+      req.flash('error', 'error: invalid room name')
+      res.redirect('/')
+    }  else {
       res.render('draw', {roomName: req.params.room})
     }
 })
 
 // user connection
 io.on('connect', socket =>{
-  const user = userJoin(socket.id, username, room)
+  var user = userJoin(socket.id, username, room)
   socket.join(user.room)
   socket.to(room).broadcast.emit(username)
   username  = ''
@@ -59,24 +80,24 @@ io.on('connect', socket =>{
 
   //user starts path
   socket.on( 'startPath', (data, userId)=>{
-    const user = getCurrentUser(userId)
+    var user = getCurrentUser(userId)
       socket.broadcast.to(user.room).emit('startPath', data, userId);
   })
 
   //user continues path
   socket.on( 'continuePath', (data, userId)=>{
-    const user = getCurrentUser(userId)
+    var user = getCurrentUser(userId)
       socket.broadcast.to(user.room).emit('continuePath', data, userId);
   })
 
   // user ends path
   socket.on( 'endPath', (data, userId)=>{
-    const user = getCurrentUser(userId)
+    var user = getCurrentUser(userId)
       socket.broadcast.to(user.room).emit('endPath', data, userId);
   })
 
   socket.on('disconnect', ()=>{
-    const user = userLeave(socket.id)
+    var user = userLeave(socket.id)
 
     if(user){
       io.to(user.room).emit('roomUsers', {
@@ -88,5 +109,4 @@ io.on('connect', socket =>{
 })
 
 const PORT = 3000 || process.env.PORT
-
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`))
