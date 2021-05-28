@@ -1,5 +1,5 @@
 # DrawTogether
-App that allows user to join a room using web sockets and draw on the same canvas.
+App that allows users to join a room using web sockets and draw on the same canvas.
 
 # Tech used
 
