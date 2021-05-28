@@ -1,6 +1,6 @@
 var users = [];
 
-//Join user to chat
+//user joins room
 function userJoin(id, username, room){
   var user = {id, username, room};
 
@@ -13,7 +13,7 @@ function getCurrentUser(id){
   return users.find(user => user.id === id);
 }
 
-//User leaves chat
+//User leaves room
 function userLeave(id){
   var index = users.findIndex(user => user.id === id);
 
