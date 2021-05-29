@@ -23,7 +23,6 @@ app.use(flash())
 
 app.use((req, res, next)=>{
   res.locals.error = req.flash("error")
-  res.locals.success = req.flash("success")
   next()
 })
 
@@ -108,5 +107,5 @@ io.on('connect', socket =>{
   })
 })
 
-const PORT = 3000 || process.env.PORT
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+const port = process.env.PORT || 3000
+server.listen(port, () => console.log(`Server running on port ${port}`))
