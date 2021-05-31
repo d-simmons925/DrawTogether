@@ -42,7 +42,7 @@ app.post('/hostRoom', (req, res)=>{
 app.post('/joinRoom', (req, res)=>{
   username = req.body.joinUsername
   room = req.body.joinRoom
-  if(username == '' || room == ''){
+  if(username == '' || room.length != 6){
     req.flash('error', 'error: invalid room name')
     res.redirect('/')
   } else{
@@ -54,7 +54,7 @@ app.get('/:room', (req, res)=>{
     if(username == ''){
       req.flash('error', 'error: no username')
       res.redirect('/')
-    } else if(room == ''){
+    } else if(room.length != 6){
       req.flash('error', 'error: invalid room name')
       res.redirect('/')
     }  else {
