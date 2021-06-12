@@ -2,6 +2,7 @@ var path = require('path')
 var http = require('http')
 var express = require('express')
 var socketio = require ('socket.io')
+var config = require('config')
 var flash = require("connect-flash")
 var session = require('express-session')
 var {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users')
@@ -11,7 +12,7 @@ var server = http.createServer(app)
 var io = socketio(server)
 
 app.use(session({
-  secret: 'my secret',
+  secret: config.get('secret'),
   resave: false,
   saveUninitialized: false
 }))
