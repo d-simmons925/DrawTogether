@@ -11,6 +11,6 @@ App that allows users to join a room using web sockets and draw on the same canv
 
 #Example Screenshots
 
-![index page](/images.main.png)
+![index page](/images/main.png)
 
 ![example of 2 users drawing on canvas](/images/draw.png)
