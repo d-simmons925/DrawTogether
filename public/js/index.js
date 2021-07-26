@@ -4,7 +4,6 @@ var titleArr = ['D','r','a','w',' ','T','o','g','e','t','h','e','r']
 var roomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 var colorChars = 'ABCDEF0123456789'
 
-console.log(titleArr)
 for(i = 0;i < titleArr.length; i++){
   var span = document.createElement('span')
   span.innerHTML = titleArr[i]
