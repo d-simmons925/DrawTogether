@@ -8,6 +8,7 @@ App that allows users to join a room using web sockets and draw on the same canv
 - Socket.io
 - Paper.js
 - EJS
+- Bootstrap 4
 
 # Example Screenshots
 
