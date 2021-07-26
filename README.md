@@ -9,7 +9,7 @@ App that allows users to join a room using web sockets and draw on the same canv
 - Paper.js
 - EJS
 
-#Example Screenshots
+# Example Screenshots
 
 ![index page](/images/main.png)
 
